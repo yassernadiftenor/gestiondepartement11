@@ -69,4 +69,12 @@ public class UtilisaturController {
           return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
       }
     }
+    @GetMapping("/login1/{login}/{pwd}")
+    public ResponseEntity<utilisateur> findUtlisateurByLoginAndPwd1(@PathVariable String login,@PathVariable String pwd) {
+        try{
+            return new ResponseEntity<utilisateur>( UtilisateurService.findUtlisateurByLoginAndPwd1(login,pwd), HttpStatus.OK);
+        }catch (Exception a){
+            return new ResponseEntity<utilisateur>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

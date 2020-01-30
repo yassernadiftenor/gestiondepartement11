@@ -74,14 +74,36 @@ public class utilisateurService {
 
         return (List<utilisateur>) userRepo.findAll();
     }
-    public boolean findUtlisateurByLoginAndPwd(String login , String pwd) {
-        List<utilisateur> listUser  =(List<utilisateur>) userRepo.findAll();
-        List<utilisateur> newList=new ArrayList<>();
-        for (utilisateur user :listUser) {
-            if(user.getLogin().equalsIgnoreCase(login )&& user.getPassword().equals(pwd)) {
-               return true;
+    public boolean findUtlisateurByLoginAndPwd(String login , String pwd) throws emptyFields {
+        if (login == "" || login == null) {
+            throw new emptyFields("the usernamer is empty");
+        } else if (pwd == "" || pwd == null) {
+            throw new emptyFields("the password is empty");
+        } else {
+            List<utilisateur> listUser = (List<utilisateur>) userRepo.findAll();
+            List<utilisateur> newList = new ArrayList<>();
+            for (utilisateur user : listUser) {
+                if (user.getLogin().equalsIgnoreCase(login) && user.getPassword().equals(pwd)) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
+    }
+    public utilisateur findUtlisateurByLoginAndPwd1(String login , String pwd) throws emptyFields {
+        if (login == "" || login == null) {
+            throw new emptyFields("the usernamer is empty");
+        } else if (pwd == "" || pwd == null) {
+            throw new emptyFields("the password is empty");
+        } else {
+            List<utilisateur> listUser = (List<utilisateur>) userRepo.findAll();
+            List<utilisateur> newList = new ArrayList<>();
+            for (utilisateur user : listUser) {
+                if (user.getLogin().equalsIgnoreCase(login) && user.getPassword().equals(pwd)) {
+                    return user;
+                }
+            }
+            return null;
+        }
     }
 }
